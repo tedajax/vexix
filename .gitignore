@@ -1,0 +1,8 @@
+Debug/*
+Release/*
+*.sdf
+*.suo
+x64/*
+Vexix/Debug/*
+Vexix/Release/*
+Vexix/x64/*
