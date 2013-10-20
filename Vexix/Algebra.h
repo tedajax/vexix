@@ -2,12 +2,13 @@
 
 #include <array>
 #include <cmath>
+#include <cstdint>
 
 const float EPSILON = 1.19209290E-07F;
 
 class Vector2;
 class Vector3;
-class Matrix3x3;
+class Matrix3;
 
 class Vector2
 {
@@ -37,6 +38,13 @@ public:
    float    LengthSqr() const;
    void     Normalize();
    Vector2  Normalized() const;
+   float    Distance(const Vector2 &other) const;
+   float    DistanceSqr(const Vector2 &other) const;
+   float    Dot(const Vector2 &other) const;
+
+   static float Distance(const Vector2 &lhs, const Vector2 &rhs);
+   static float DistanceSqr(const Vector2 &lhs, const Vector2 &rhs);
+   static float Dot(const Vector2 &lhs, const Vector2 &rhs);
 
    static Vector2 ZERO;
    static Vector2 ONE;
@@ -90,9 +98,21 @@ private:
    std::array<float, 3> m_data;
 };
 
-class Matrix3x3
+class Matrix3
 {
+public:
+   Matrix3();
+   Matrix3(const Matrix3 &copy);
+   Matrix3(float m11, float m12, float m13,
+           float m21, float m22, float m23,
+           float m31, float m32, float m33);
+   
+   ~Matrix3();
 
+   float    operator()(uint32_t row, uint32_t col);
+
+private:
+   std::array<float, 9> m_data;
 };
 
 #pragma region Vector2 Inline Functions

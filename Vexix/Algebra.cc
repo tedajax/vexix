@@ -125,6 +125,36 @@ Vector2 Vector2::Normalized() const
    float l = this->Length();
    return Vector2(this->X() / l, this->Y() / l);
 }
+
+float Vector2::Distance(const Vector2 &other) const
+{
+   return sqrtf(DistanceSqr(other));
+}
+
+float Vector2::DistanceSqr(const Vector2 &other) const
+{
+   return (other - *(this)).LengthSqr();
+}
+
+float Vector2::Dot(const Vector2 &other) const
+{
+   return (this->X() * other.X() + this->Y() * other.Y());
+}
+
+float Vector2::Distance(const Vector2 &lhs, const Vector2 &rhs)
+{
+   return lhs.Distance(rhs);
+}
+
+float Vector2::DistanceSqr(const Vector2 &lhs, const Vector2 &rhs)
+{
+   return lhs.DistanceSqr(rhs);
+}
+
+float Vector2::Dot(const Vector2 &lhs, const Vector2 &rhs)
+{
+   return lhs.Dot(rhs);
+}
 #pragma endregion
 
 #pragma endregion
