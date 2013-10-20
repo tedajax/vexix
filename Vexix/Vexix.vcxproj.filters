@@ -24,6 +24,9 @@
     <ClCompile Include="Algebra.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CTransform.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CApplication.h">
@@ -39,6 +42,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CTransform.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AjaxMath.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

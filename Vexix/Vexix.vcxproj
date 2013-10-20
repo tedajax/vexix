@@ -131,9 +131,11 @@
   <ItemGroup>
     <ClCompile Include="Algebra.cc" />
     <ClCompile Include="CApplication.cc" />
+    <ClCompile Include="CTransform.cc" />
     <ClCompile Include="main.cc" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AjaxMath.h" />
     <ClInclude Include="CApplication.h" />
     <ClInclude Include="CComponent.h" />
     <ClInclude Include="CEntity.h" />
