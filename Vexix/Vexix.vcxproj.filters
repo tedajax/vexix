@@ -27,6 +27,12 @@
     <ClCompile Include="CTransform.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CComponent.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CEntity.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CApplication.h">

@@ -5,9 +5,9 @@ CComponent::CComponent()
 
 }
 
-CComponent::CComponent(shared_ptr<CEntity> gameObject)
+CComponent::CComponent(shared_ptr<CEntity> entity)
 {
-   m_gameObject = gameObject;
+   m_entity = entity;
 }
 
 CComponent *CComponent::Create(shared_ptr<CEntity> gameObject)
@@ -15,3 +15,46 @@ CComponent *CComponent::Create(shared_ptr<CEntity> gameObject)
    return new CComponent();
 }
 
+CComponent::~CComponent()
+{
+
+}
+
+void CComponent::SetEnabled(bool enabled) { m_enabled = enabled; }
+bool CComponent::IsEnabled() { return m_enabled; }
+
+void CComponent::RequestStart()
+{
+   if (m_enabled) {
+      this->Start();
+   }
+}
+
+void CComponent::RequestUpdate()
+{
+   if (m_enabled) {
+      this->Update();
+   }
+}
+
+void CComponent::RequestRender()
+{
+   if (m_enabled) {
+      this->Render();
+   }
+}
+
+void CComponent::Start()
+{
+
+}
+
+void CComponent::Update()
+{
+
+}
+
+void CComponent::Render()
+{
+   
+}

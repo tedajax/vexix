@@ -131,6 +131,8 @@
   <ItemGroup>
     <ClCompile Include="Algebra.cc" />
     <ClCompile Include="CApplication.cc" />
+    <ClCompile Include="CComponent.cc" />
+    <ClCompile Include="CEntity.cc" />
     <ClCompile Include="CTransform.cc" />
     <ClCompile Include="main.cc" />
   </ItemGroup>

@@ -1,4 +1,6 @@
 #include "CApplication.h"
+#include "CEntity.h"
+#include "CTransform.h"
 
 CApplication::CApplication()
 {
