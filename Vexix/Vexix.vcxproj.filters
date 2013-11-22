@@ -33,6 +33,12 @@
     <ClCompile Include="CEntity.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CSprite.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceManager.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CApplication.h">
@@ -51,6 +57,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="AjaxMath.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CSprite.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

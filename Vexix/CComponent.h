@@ -3,7 +3,6 @@
 #include <memory>
 
 using std::shared_ptr;
-using std::weak_ptr;
 
 class CEntity;
 
@@ -13,7 +12,7 @@ public:
    CComponent();
    CComponent(shared_ptr<CEntity> entity);
    
-   virtual CComponent *Create(shared_ptr<CEntity> gameObject);
+   virtual CComponent *Create(shared_ptr<CEntity> entity);
 
    virtual ~CComponent();
 
@@ -26,7 +25,7 @@ public:
 
 protected:
    bool m_enabled;
-   weak_ptr<CEntity> m_entity;
+   shared_ptr<CEntity> m_entity;
 
    virtual void Start();
    virtual void Update();

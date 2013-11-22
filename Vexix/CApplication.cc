@@ -1,6 +1,9 @@
 #include "CApplication.h"
 #include "CEntity.h"
+#include "CSprite.h"
 #include "CTransform.h"
+
+shared_ptr<SDL_Renderer> CApplication::s_renderer;
 
 CApplication::CApplication()
 {
@@ -12,6 +15,19 @@ int32_t CApplication::OnExecute()
    if (OnInit() == false) {
       return -1;
    }
+
+   shared_ptr<CEntity> entity = shared_ptr<CEntity>(new CEntity());
+   entity->AddComponent<CSprite>(shared_ptr<CSprite>(new CSprite()));
+   shared_ptr<CSprite> sprite = entity->GetComponent<CSprite>();
+   
+   std::unique_ptr<SDL_Surface, decltype(SDL_FreeSurface)*> bitmap = std::unique_ptr<SDL_Surface, decltype(SDL_FreeSurface)*>(SDL_LoadBMP("hello.bmp"), SDL_FreeSurface);
+   if (bitmap == nullptr) {
+      std::cout << SDL_GetError() << std::endl;
+      return false;
+   }
+
+   shared_ptr<SDL_Texture> texture = std::shared_ptr<SDL_Texture>(SDL_CreateTextureFromSurface(s_renderer.get(), bitmap.get()), SDL_DestroyTexture);
+   sprite->SetTexture(texture);
 
    SDL_Event sdlEvent;
    while (m_running) {
@@ -41,20 +57,12 @@ bool CApplication::OnInit()
       return false;
    }
 
-   m_renderer = std::shared_ptr<SDL_Renderer>(SDL_CreateRenderer(m_window.get(), -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC), SDL_DestroyRenderer);
+   s_renderer = std::shared_ptr<SDL_Renderer>(SDL_CreateRenderer(m_window.get(), -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC), SDL_DestroyRenderer);
 
-   if (m_renderer == nullptr) {
+   if (s_renderer == nullptr) {
       std::cout << SDL_GetError() << std::endl;
       return false;
-   }
-
-   std::unique_ptr<SDL_Surface, decltype(SDL_FreeSurface)*> m_bitmap = std::unique_ptr<SDL_Surface, decltype(SDL_FreeSurface)*>(SDL_LoadBMP("hello.bmp"), SDL_FreeSurface);
-   if (m_bitmap == nullptr) {
-      std::cout << SDL_GetError() << std::endl;
-      return false;
-   }
-
-   m_texture = std::shared_ptr<SDL_Texture>(SDL_CreateTextureFromSurface(m_renderer.get(), m_bitmap.get()), SDL_DestroyTexture);
+   }   
    
    return true;
 }
@@ -83,9 +91,9 @@ void CApplication::OnUpdate()
 
 void CApplication::OnRender()
 {
-   SDL_RenderClear(m_renderer.get());
-   SDL_RenderCopy(m_renderer.get(), m_texture.get(), nullptr, nullptr);
-   SDL_RenderPresent(m_renderer.get());
+   SDL_RenderClear(s_renderer.get());
+   
+   SDL_RenderPresent(s_renderer.get());
 }
 
 void CApplication::OnCleanup()
@@ -93,3 +101,4 @@ void CApplication::OnCleanup()
    SDL_Quit();
 }
 
+shared_ptr<SDL_Renderer> CApplication::Renderer() { return s_renderer; }

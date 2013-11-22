@@ -10,8 +10,7 @@ class CApplication
 private:
    bool m_running;
    std::shared_ptr<SDL_Window> m_window;
-   std::shared_ptr<SDL_Renderer> m_renderer;
-   std::shared_ptr<SDL_Texture> m_texture; //also for testing delete me
+   static std::shared_ptr<SDL_Renderer> s_renderer;
 
 public:
    CApplication();
@@ -22,4 +21,6 @@ public:
    void OnUpdate();
    void OnRender();
    void OnCleanup();
+
+   static std::shared_ptr<SDL_Renderer> Renderer();
 };

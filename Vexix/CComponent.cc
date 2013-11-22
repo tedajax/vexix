@@ -10,9 +10,9 @@ CComponent::CComponent(shared_ptr<CEntity> entity)
    m_entity = entity;
 }
 
-CComponent *CComponent::Create(shared_ptr<CEntity> gameObject)
+CComponent *CComponent::Create(shared_ptr<CEntity> entity)
 {
-   return new CComponent();
+   return new CComponent(entity);
 }
 
 CComponent::~CComponent()
@@ -56,5 +56,5 @@ void CComponent::Update()
 
 void CComponent::Render()
 {
-   
+
 }

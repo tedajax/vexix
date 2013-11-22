@@ -133,16 +133,21 @@
     <ClCompile Include="CApplication.cc" />
     <ClCompile Include="CComponent.cc" />
     <ClCompile Include="CEntity.cc" />
+    <ClCompile Include="CSprite.cc" />
     <ClCompile Include="CTransform.cc" />
     <ClCompile Include="main.cc" />
+    <ClCompile Include="ResourceManager.cc" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AjaxMath.h" />
+    <ClInclude Include="AjaxUtil.h" />
     <ClInclude Include="CApplication.h" />
     <ClInclude Include="CComponent.h" />
     <ClInclude Include="CEntity.h" />
     <ClInclude Include="Algebra.h" />
+    <ClInclude Include="CSprite.h" />
     <ClInclude Include="CTransform.h" />
+    <ClInclude Include="ResourceManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
