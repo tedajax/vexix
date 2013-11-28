@@ -1,16 +1,21 @@
 #pragma once
 
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
 #include <cstdint>
 #include <memory>
 #include <iostream>
+#include "AjaxUtil.h"
+#include "ResourceManager.h"
+#include "CEntityManager.h"
 
 class CApplication
 {
 private:
    bool m_running;
    std::shared_ptr<SDL_Window> m_window;
-   static std::shared_ptr<SDL_Renderer> s_renderer;
+   std::shared_ptr<SDL_Renderer> m_renderer;
+   CEntityManager m_entities;
 
 public:
    CApplication();
@@ -22,5 +27,9 @@ public:
    void OnRender();
    void OnCleanup();
 
-   static std::shared_ptr<SDL_Renderer> Renderer();
+   std::shared_ptr<SDL_Window> Window();
+   std::shared_ptr<SDL_Renderer> Renderer();
 };
+
+extern CApplication g_application;
+extern ResourceManager g_resources;

@@ -44,5 +44,5 @@ void CSprite::Update()
 
 void CSprite::Render()
 {
-   SDL_RenderCopy(CApplication::Renderer().get(), m_texture.get(), nullptr, nullptr);
+   SDL_RenderCopy(g_application.Renderer().get(), m_texture.get(), nullptr, nullptr);
 }

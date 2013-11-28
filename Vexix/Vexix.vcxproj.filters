@@ -39,6 +39,12 @@
     <ClCompile Include="ResourceManager.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="AjaxUtil.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CEntityManager.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CApplication.h">
@@ -63,6 +69,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ResourceManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AjaxUtil.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CEntityManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

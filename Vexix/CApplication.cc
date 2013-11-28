@@ -3,8 +3,6 @@
 #include "CSprite.h"
 #include "CTransform.h"
 
-shared_ptr<SDL_Renderer> CApplication::s_renderer;
-
 CApplication::CApplication()
 {
    m_running = true;
@@ -19,14 +17,10 @@ int32_t CApplication::OnExecute()
    shared_ptr<CEntity> entity = shared_ptr<CEntity>(new CEntity());
    entity->AddComponent<CSprite>(shared_ptr<CSprite>(new CSprite()));
    shared_ptr<CSprite> sprite = entity->GetComponent<CSprite>();
+   m_entities.AddEntity(entity);
    
-   std::unique_ptr<SDL_Surface, decltype(SDL_FreeSurface)*> bitmap = std::unique_ptr<SDL_Surface, decltype(SDL_FreeSurface)*>(SDL_LoadBMP("hello.bmp"), SDL_FreeSurface);
-   if (bitmap == nullptr) {
-      std::cout << SDL_GetError() << std::endl;
-      return false;
-   }
-
-   shared_ptr<SDL_Texture> texture = std::shared_ptr<SDL_Texture>(SDL_CreateTextureFromSurface(s_renderer.get(), bitmap.get()), SDL_DestroyTexture);
+   g_resources.LoadResource<Texture>("hello.png");
+   shared_ptr<SDL_Texture> texture = g_resources.Get<Texture>("hello.png")->GetTexture();
    sprite->SetTexture(texture);
 
    SDL_Event sdlEvent;
@@ -46,23 +40,36 @@ int32_t CApplication::OnExecute()
 
 bool CApplication::OnInit()
 {
+   LOAD_MSG("Initializing SDL")
    if (SDL_Init(SDL_INIT_EVERYTHING) == -1) {
       std::cout << SDL_GetError() << std::endl;
       return false;
    }
+   DONE
 
+   LOAD_MSG("Initializing SDL_image")
+   int32_t imgFlags = IMG_INIT_PNG | IMG_INIT_JPG;
+   if (!(IMG_Init(imgFlags) & imgFlags)) {
+      std::cout << SDL_GetError() << std::endl;
+      return false;
+   }
+   DONE
+
+   LOAD_MSG("Creating window")
    m_window = std::shared_ptr<SDL_Window>(SDL_CreateWindow("Vexix", 100, 100, 640, 480, SDL_WINDOW_SHOWN), SDL_DestroyWindow);
    if (m_window == nullptr) {
       std::cout << SDL_GetError() << std::endl;
       return false;
    }
+   DONE
 
-   s_renderer = std::shared_ptr<SDL_Renderer>(SDL_CreateRenderer(m_window.get(), -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC), SDL_DestroyRenderer);
-
-   if (s_renderer == nullptr) {
+   LOAD_MSG("Creating renderer")
+   m_renderer = std::shared_ptr<SDL_Renderer>(SDL_CreateRenderer(m_window.get(), -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC), SDL_DestroyRenderer);
+   if (m_renderer == nullptr) {
       std::cout << SDL_GetError() << std::endl;
       return false;
    }   
+   DONE
    
    return true;
 }
@@ -86,14 +93,14 @@ void CApplication::OnEvent(SDL_Event *sdlEvent)
 
 void CApplication::OnUpdate()
 {
-
+   m_entities.Update();
 }
 
 void CApplication::OnRender()
 {
-   SDL_RenderClear(s_renderer.get());
-   
-   SDL_RenderPresent(s_renderer.get());
+   SDL_RenderClear(m_renderer.get());
+   m_entities.Render();
+   SDL_RenderPresent(m_renderer.get());
 }
 
 void CApplication::OnCleanup()
@@ -101,4 +108,8 @@ void CApplication::OnCleanup()
    SDL_Quit();
 }
 
-shared_ptr<SDL_Renderer> CApplication::Renderer() { return s_renderer; }
+shared_ptr<SDL_Window> CApplication::Window() { return m_window; }
+shared_ptr<SDL_Renderer> CApplication::Renderer() { return m_renderer; }
+
+CApplication g_application;
+ResourceManager g_resources;

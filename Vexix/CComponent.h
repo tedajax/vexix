@@ -1,6 +1,7 @@
 #pragma once
 
 #include <memory>
+#include "AjaxUtil.h"
 
 using std::shared_ptr;
 

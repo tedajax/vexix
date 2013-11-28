@@ -25,6 +25,10 @@ public:
    std::string GetName();
    void SetName(std::string name);
 
+   void RequestStart();
+   void RequestUpdate();
+   void RequestRender();
+
    template <typename T>
    shared_ptr<T> GetComponent()
    {
