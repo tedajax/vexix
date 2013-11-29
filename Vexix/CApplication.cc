@@ -17,11 +17,14 @@ int32_t CApplication::OnExecute()
    shared_ptr<CEntity> entity = shared_ptr<CEntity>(new CEntity());
    entity->AddComponent<CSprite>(shared_ptr<CSprite>(new CSprite()));
    shared_ptr<CSprite> sprite = entity->GetComponent<CSprite>();
+   entity->AddComponent<CTransform>(shared_ptr<CTransform>(new CTransform()));
    m_entities.AddEntity(entity);
    
    g_resources.LoadResource<Texture>("hello.png");
    shared_ptr<SDL_Texture> texture = g_resources.Get<Texture>("hello.png")->GetTexture();
    sprite->SetTexture(texture);
+
+   m_entities.Start();
 
    SDL_Event sdlEvent;
    while (m_running) {
@@ -83,6 +86,7 @@ void CApplication::OnEvent(SDL_Event *sdlEvent)
          break;
 
       case SDL_KEYDOWN:
+         DEBUG_MSGLN("keydown")
          if (sdlEvent->key.keysym.sym == SDLK_ESCAPE) {
             m_running = false;
          }

@@ -38,6 +38,10 @@ public:
    float GetLocalRotation() const;
    glm::mat3 GetLocalWorldMatrix() const;
 
+   void Move(glm::vec2 velocity);
+   void Rotate(float angVelocity);
+   void Stretch(float sclVelocity);
+
    void SetLocalPosition(glm::vec2 position);
    void SetLocalRotation(float rotation);
    void SetLocalScale(glm::vec2 scale);

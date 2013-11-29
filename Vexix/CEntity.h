@@ -11,7 +11,7 @@ using std::map;
 using std::shared_ptr;
 using std::weak_ptr;
 
-class CEntity
+class CEntity : public std::enable_shared_from_this<CEntity>
 {
 public:
    CEntity();
@@ -43,7 +43,12 @@ public:
    template <typename T>
    void AddComponent(shared_ptr<T> component)
    {
+      const CComponent *ref = component.get();
+      //not a component type
+      if (!ref) { return; }
+
       std::type_index index = std::type_index(typeid(component));
+      std::dynamic_pointer_cast<T, CComponent>(component)->SetEntity(shared_from_this());
       m_components[std::type_index(typeid(*component))] = component;
    }
    

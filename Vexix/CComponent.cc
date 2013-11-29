@@ -23,6 +23,8 @@ CComponent::~CComponent()
 void CComponent::SetEnabled(bool enabled) { m_enabled = enabled; }
 bool CComponent::IsEnabled() { return m_enabled; }
 
+void CComponent::SetEntity(shared_ptr<CEntity> entity) { m_entity = entity; }
+
 void CComponent::RequestStart()
 {
    if (m_enabled) {

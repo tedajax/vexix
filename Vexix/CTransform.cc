@@ -66,6 +66,21 @@ glm::vec2 CTransform::GetLocalScale() const { return m_localScale; }
 float CTransform::GetLocalRotation() const { return m_localRotation; }
 glm::mat3 CTransform::GetLocalWorldMatrix() const { return m_localWorld; }
 
+void CTransform::Move(glm::vec2 velocity)
+{
+   this->SetLocalPosition(m_localPosition + velocity);
+}
+
+void CTransform::Rotate(float angVelocity)
+{
+   this->SetLocalRotation(m_localRotation + angVelocity);
+}
+
+void CTransform::Stretch(float sclVelocity)
+{
+   this->SetLocalScale(m_localScale + sclVelocity);
+}
+
 void CTransform::SetLocalPosition(glm::vec2 position)
 {
    m_localPosition = position;

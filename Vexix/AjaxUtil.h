@@ -11,11 +11,13 @@ using std::vector;
 
 #if _DEBUG
    #define DEBUG_MSG(x) std::cout << x;
+   #define DEBUG_MSGLN(x) std::cout << x << std::endl;
    #define LOAD_MSG(x) std::cout << x << "... ";
    #define DONE std::cout << "Done\n";
    #define FAILED std::cout << "Failed\n";
 #else
    #define DEBUG_MSG(x)
+   #define DEBUG_MSGLN(x)
    #define LOAD_MSG(x)
    #define DONE
    #define FAILED
