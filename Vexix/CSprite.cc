@@ -19,13 +19,25 @@ CSprite::~CSprite()
 
 void CSprite::SetTexture(shared_ptr<SDL_Texture> texture)
 {
-   m_texture = texture;
+   UpdateTextureData(texture);
 }
 
 void CSprite::SetTexture(std::string resourceName)
 {
-   //todo
+   auto tex = g_resources.Get<Texture>(resourceName);
+   if (tex) {
+      UpdateTextureData(tex->GetTexture());
+   }
    return;
+}
+
+void CSprite::UpdateTextureData(shared_ptr<SDL_Texture> texture)
+{
+   if (texture) {
+      m_texture = texture;
+
+      SDL_QueryTexture(m_texture.get(), nullptr, nullptr, &m_width, &m_height);
+   }
 }
 
 shared_ptr<SDL_Texture> CSprite::GetTexture() const
@@ -36,13 +48,6 @@ shared_ptr<SDL_Texture> CSprite::GetTexture() const
 void CSprite::Start()
 {
    m_transform = GetComponent<CTransform>();
-}
-
-void CSprite::Update()
-{
-   if (auto transform = m_transform.lock()) {
-      transform->Move(glm::vec2(0.0f, 1.0f));
-   }
 }
 
 SDL_Rect CSprite::RectFromTransform()
@@ -57,7 +62,8 @@ SDL_Rect CSprite::RectFromTransform()
       result.y = 0;
    }
 
-   SDL_QueryTexture(m_texture.get(), nullptr, nullptr, &result.w, &result.h);
+   result.w = m_width;
+   result.h = m_height;
    return result;
 }
 

@@ -132,11 +132,13 @@
     <ClCompile Include="AjaxUtil.cc" />
     <ClCompile Include="Algebra.cc" />
     <ClCompile Include="CApplication.cc" />
+    <ClCompile Include="CBasicPlayerController.cc" />
     <ClCompile Include="CComponent.cc" />
     <ClCompile Include="CEntity.cc" />
     <ClCompile Include="CEntityManager.cc" />
     <ClCompile Include="CSprite.cc" />
     <ClCompile Include="CTransform.cc" />
+    <ClCompile Include="Input.cc" />
     <ClCompile Include="main.cc" />
     <ClCompile Include="ResourceManager.cc" />
   </ItemGroup>
@@ -144,12 +146,14 @@
     <ClInclude Include="AjaxMath.h" />
     <ClInclude Include="AjaxUtil.h" />
     <ClInclude Include="CApplication.h" />
+    <ClInclude Include="CBasicPlayerController.h" />
     <ClInclude Include="CComponent.h" />
     <ClInclude Include="CEntity.h" />
     <ClInclude Include="Algebra.h" />
     <ClInclude Include="CEntityManager.h" />
     <ClInclude Include="CSprite.h" />
     <ClInclude Include="CTransform.h" />
+    <ClInclude Include="Input.h" />
     <ClInclude Include="ResourceManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -26,8 +26,12 @@ public:
   
 protected:
    void Start() override;
-   void Update() override;
    void Render() override;
+
+   virtual void UpdateTextureData(shared_ptr<SDL_Texture>);
+
+   int32_t m_width;
+   int32_t m_height;
 
 private:
    shared_ptr<SDL_Texture> m_texture;

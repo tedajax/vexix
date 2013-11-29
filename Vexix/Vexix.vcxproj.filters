@@ -13,6 +13,24 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Resources">
+      <UniqueIdentifier>{91ef935a-3078-491d-b6d1-f0468d848f29}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Entities">
+      <UniqueIdentifier>{0ee73006-447e-4715-9664-c4888bb72d6b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Components">
+      <UniqueIdentifier>{c12b2b18-2100-4c0f-9d78-d4b5d6c53df0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Components">
+      <UniqueIdentifier>{58f37252-5029-47cc-8c99-54e08cc9cf75}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Entities">
+      <UniqueIdentifier>{2ff649ce-66c0-4b79-8f32-2dfa63a2503f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Resources">
+      <UniqueIdentifier>{18c95da1-e6bb-4550-9306-0d8a3c85ca8b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cc">
@@ -24,58 +42,70 @@
     <ClCompile Include="Algebra.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CTransform.cc">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CComponent.cc">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CEntity.cc">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CSprite.cc">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ResourceManager.cc">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="AjaxUtil.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CEntityManager.cc">
+    <ClCompile Include="Input.cc">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceManager.cc">
+      <Filter>Source Files\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="CComponent.cc">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="CSprite.cc">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="CTransform.cc">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="CEntityManager.cc">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="CEntity.cc">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="CBasicPlayerController.cc">
+      <Filter>Source Files\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CApplication.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CEntity.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Algebra.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CTransform.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="AjaxMath.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CSprite.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ResourceManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="AjaxUtil.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CEntityManager.h">
+    <ClInclude Include="Input.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CComponent.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="CSprite.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="CTransform.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="CEntity.h">
+      <Filter>Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="CEntityManager.h">
+      <Filter>Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceManager.h">
+      <Filter>Header Files\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="CBasicPlayerController.h">
+      <Filter>Header Files\Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -2,6 +2,7 @@
 #include "CEntity.h"
 #include "CSprite.h"
 #include "CTransform.h"
+#include "CBasicPlayerController.h"
 
 CApplication::CApplication()
 {
@@ -18,6 +19,7 @@ int32_t CApplication::OnExecute()
    entity->AddComponent<CSprite>(shared_ptr<CSprite>(new CSprite()));
    shared_ptr<CSprite> sprite = entity->GetComponent<CSprite>();
    entity->AddComponent<CTransform>(shared_ptr<CTransform>(new CTransform()));
+   entity->AddComponent<CBasicPlayerController>(shared_ptr<CBasicPlayerController>(new CBasicPlayerController()));
    m_entities.AddEntity(entity);
    
    g_resources.LoadResource<Texture>("hello.png");
@@ -94,6 +96,7 @@ void CApplication::OnEvent(SDL_Event *sdlEvent)
 
 void CApplication::OnUpdate()
 {
+   g_input.Update();
    m_entities.Update();
 }
 
@@ -114,3 +117,4 @@ shared_ptr<SDL_Renderer> CApplication::Renderer() { return m_renderer; }
 
 CApplication g_application;
 ResourceManager g_resources;
+Input g_input;

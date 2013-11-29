@@ -8,6 +8,7 @@
 #include "AjaxUtil.h"
 #include "ResourceManager.h"
 #include "CEntityManager.h"
+#include "Input.h"
 
 class CApplication
 {
@@ -33,3 +34,4 @@ public:
 
 extern CApplication g_application;
 extern ResourceManager g_resources;
+extern Input g_input;
