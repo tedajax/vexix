@@ -79,19 +79,16 @@ bool CApplication::OnInit()
 
 void CApplication::OnEvent(SDL_Event *sdlEvent)
 {
-   while (SDL_PollEvent(sdlEvent)) {
-      switch (sdlEvent->type) {
-      case SDL_QUIT:
-         m_running = false;
-         break;
+   switch (sdlEvent->type) {
+   case SDL_QUIT:
+      m_running = false;
+      break;
 
-      case SDL_KEYDOWN:
-         DEBUG_MSGLN("keydown")
-         if (sdlEvent->key.keysym.sym == SDLK_ESCAPE) {
-            m_running = false;
-         }
-         break;
+   case SDL_KEYDOWN:
+      if (sdlEvent->key.keysym.sym == SDLK_ESCAPE) {
+         m_running = false;
       }
+      break;
    }
 }
 
