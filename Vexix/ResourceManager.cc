@@ -69,17 +69,22 @@ ResourceManager::ResourceLoadResult Texture::Load(string filename)
       std::cout << SDL_GetError() << std::endl;
       return ResourceManager::FILE_NOT_FOUND;
    }
-   SDL_PixelFormat *format = SDL_GetWindowSurface(g_application.Window().get())->format;
-   auto optimizedImage = std::unique_ptr<SDL_Surface, decltype(SDL_FreeSurface)*>(SDL_ConvertSurface(rawImage.get(), format, 0),
-                                                                                  SDL_FreeSurface);
+   
+   /*SDL_PixelFormat *format = SDL_GetWindowSurface(g_application.Window().get())->format;
+   auto optimizedImage = std::unique_ptr<SDL_Surface, decltype(SDL_FreeSurface)*>(
+      SDL_ConvertSurface(rawImage.get(), 
+                         format, 
+                         0),
+      SDL_FreeSurface);
+
    if (!optimizedImage) {
       FAILED
       std::cout << SDL_GetError() << std::endl;
       return ResourceManager::FILE_PROCESSING_ERROR;
-   }
+   }*/
 
    SDL_Renderer *renderer = g_application.Renderer().get();
-   m_texture = shared_ptr<SDL_Texture>(SDL_CreateTextureFromSurface(renderer, optimizedImage.get()), SDL_DestroyTexture);
+   m_texture = shared_ptr<SDL_Texture>(SDL_CreateTextureFromSurface(renderer, rawImage.get()), SDL_DestroyTexture);
    if (!m_texture) {
       FAILED
       std::cout << SDL_GetError() << std::endl;

@@ -18,25 +18,18 @@ int32_t CApplication::OnExecute()
    }
 
    shared_ptr<CEntity> entity = shared_ptr<CEntity>(new CEntity());
-   entity->AddComponent<CSprite>(shared_ptr<CSprite>(new CSprite()));
+   entity->AddComponent<CSprite>();
    shared_ptr<CSprite> sprite = entity->GetComponent<CSprite>();
-   entity->AddComponent<CTransform>(shared_ptr<CTransform>(new CTransform()));
-   entity->AddComponent<CBasicPlayerController>(shared_ptr<CBasicPlayerController>(new CBasicPlayerController()));
-   m_entities.AddEntity(entity);
+   entity->AddComponent<CTransform>();
+   entity->AddComponent<CBasicPlayerController>();
+   g_entities.AddEntityImmediately(entity);
    
    g_resources.LoadResource<Texture>("ship.png");
+   g_resources.LoadResource<Texture>("bullet.png");
    shared_ptr<SDL_Texture> texture = g_resources.Get<Texture>("ship.png")->GetTexture();
    sprite->SetTexture(texture);
 
-   auto transform = entity->GetComponent<CTransform>();
-   transform->Rotate(90.0f);
-   transform->SetLocalScale(glm::vec2(0.3f, 0.5f));
-
-   m_entities.Start();
-
-   const int FRAMES_PER_SECOND = 60;
-   const float MS_PER_FRAME = 1000.0f / (float)FRAMES_PER_SECOND;
-   float currentMilliseconds = 0.0f;
+   g_entities.Start();
 
    ::system_clock::time_point prevTime, currTime;
    currTime = ::high_resolution_clock::now();
@@ -79,7 +72,7 @@ bool CApplication::OnInit()
    DONE
 
    LOAD_MSG("Creating window")
-   m_window = std::shared_ptr<SDL_Window>(SDL_CreateWindow("Vexix", 100, 100, 640, 480, SDL_WINDOW_SHOWN), SDL_DestroyWindow);
+   m_window = std::shared_ptr<SDL_Window>(SDL_CreateWindow("Vexix", 320, 100, 1280, 720, SDL_WINDOW_SHOWN), SDL_DestroyWindow);
    if (m_window == nullptr) {
       std::cout << SDL_GetError() << std::endl;
       return false;
@@ -87,7 +80,12 @@ bool CApplication::OnInit()
    DONE
 
    LOAD_MSG("Creating renderer")
-   m_renderer = std::shared_ptr<SDL_Renderer>(SDL_CreateRenderer(m_window.get(), -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC), SDL_DestroyRenderer);
+   m_renderer = shared_ptr<SDL_Renderer>(
+      SDL_CreateRenderer(m_window.get(),
+                         -1,
+                         SDL_RENDERER_ACCELERATED),
+      SDL_DestroyRenderer);
+
    if (m_renderer == nullptr) {
       std::cout << SDL_GetError() << std::endl;
       return false;
@@ -115,13 +113,13 @@ void CApplication::OnEvent(const SDL_Event &sdlEvent)
 void CApplication::OnUpdate(float dt)
 {
    g_input.Update();
-   m_entities.Update(dt);
+   g_entities.Update(dt);
 }
 
 void CApplication::OnRender()
 {
    SDL_RenderClear(m_renderer.get());
-   m_entities.Render();
+   g_entities.Render();
    SDL_RenderPresent(m_renderer.get());
 }
 
@@ -135,4 +133,5 @@ shared_ptr<SDL_Renderer> CApplication::Renderer() { return m_renderer; }
 
 CApplication g_application;
 ResourceManager g_resources;
+CEntityManager g_entities;
 Input g_input;

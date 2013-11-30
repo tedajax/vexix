@@ -3,11 +3,13 @@
 #include <memory>
 #include <vector>
 #include <string>
+#include <queue>
 #include <algorithm>
 #include "AjaxUtil.h"
 #include "CEntity.h"
 
 using std::vector;
+using std::queue;
 using std::shared_ptr;
 using std::string;
 
@@ -17,7 +19,8 @@ public:
    CEntityManager();
    ~CEntityManager();
 
-   bool AddEntity(shared_ptr<CEntity> entity);
+   shared_ptr<CEntity> AddEntityImmediately(shared_ptr<CEntity> entity);
+   shared_ptr<CEntity> AddEntity(shared_ptr<CEntity> entity);
    void RemoveEntity(shared_ptr<CEntity> entity);
 
    //finds first entity with name
@@ -31,4 +34,6 @@ public:
 
 private:
    vector<shared_ptr<CEntity>> m_entities;
+   queue<shared_ptr<CEntity>> m_addQueue;
+   queue<shared_ptr<CEntity>> m_removeQueue;
 };

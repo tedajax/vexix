@@ -10,14 +10,22 @@ CEntityManager::~CEntityManager()
    m_entities.clear();
 }
 
-bool CEntityManager::AddEntity(shared_ptr<CEntity> entity)
+shared_ptr<CEntity> CEntityManager::AddEntityImmediately(shared_ptr<CEntity> entity)
 {
    if (entity) {
       m_entities.push_back(entity);
-      return true;
    }
 
-   return false;
+   return entity;
+}
+
+shared_ptr<CEntity> CEntityManager::AddEntity(shared_ptr<CEntity> entity)
+{
+   if (entity) {
+      m_addQueue.push(entity);
+   }
+
+   return entity;
 }
 
 void CEntityManager::RemoveEntity(shared_ptr<CEntity> entity)
@@ -36,6 +44,13 @@ void CEntityManager::Update(float dt)
 {
    for (auto &e : m_entities) {
       e->RequestUpdate(dt);
+   }
+
+   while (m_addQueue.size() > 0) {
+      shared_ptr<CEntity> e = m_addQueue.front();
+      e->RequestStart();
+      m_entities.push_back(e);
+      m_addQueue.pop();
    }
 }
 

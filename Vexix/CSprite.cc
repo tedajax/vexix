@@ -62,8 +62,8 @@ SDL_Rect CSprite::RectFromTransform()
    if (auto transform = m_transform.lock()) {
       result.x = (int32_t)transform->GetLocalPosition().x;
       result.y = (int32_t)transform->GetLocalPosition().y;
-      result.w *= transform->GetLocalScale().x;
-      result.h *= transform->GetLocalScale().y;
+      result.w = (int32_t)(result.w * transform->GetLocalScale().x);
+      result.h = (int32_t)(result.h * transform->GetLocalScale().y);
    }
    
    return result;

@@ -17,7 +17,6 @@ private:
    bool m_running;
    std::shared_ptr<SDL_Window> m_window;
    std::shared_ptr<SDL_Renderer> m_renderer;
-   CEntityManager m_entities;
 
 public:
    CApplication();
@@ -35,4 +34,5 @@ public:
 
 extern CApplication g_application;
 extern ResourceManager g_resources;
+extern CEntityManager g_entities;
 extern Input g_input;

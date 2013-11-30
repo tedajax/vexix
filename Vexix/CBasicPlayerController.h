@@ -5,6 +5,8 @@
 #include "CEntity.h"
 #include "CComponent.h"
 #include "CTransform.h"
+#include "CBasicBulletController.h"
+#include "CSprite.h"
 #include "AjaxMath.h"
 #include "CApplication.h"
 
@@ -22,4 +24,6 @@ private:
    glm::vec2 m_velocity;
    float m_speed;
    weak_ptr<CTransform> m_transform;
+
+   void FireBullet();
 };

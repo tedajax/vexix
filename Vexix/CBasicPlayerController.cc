@@ -20,21 +20,42 @@ void CBasicPlayerController::Update(float dt)
 {
    m_velocity = ajx::vec2::zero;
 
-   if (g_input.GetKey(SDLK_RIGHT)) {
+   if (g_input.GetKey(SDL_SCANCODE_RIGHT)) {
       m_velocity += ajx::vec2::unit_x * m_speed;
    }
-   if (g_input.GetKey(SDLK_LEFT)) {
+   if (g_input.GetKey(SDL_SCANCODE_LEFT)) {
       m_velocity -= ajx::vec2::unit_x * m_speed;
    }
 
-   if (g_input.GetKey(SDLK_UP)) {
+   if (g_input.GetKey(SDL_SCANCODE_UP)) {
       m_velocity -= ajx::vec2::unit_y * m_speed;
    }
-   if (g_input.GetKey(SDLK_DOWN)) {
+   if (g_input.GetKey(SDL_SCANCODE_DOWN)) {
       m_velocity += ajx::vec2::unit_y * m_speed;
    }
 
    if (auto transform = m_transform.lock()) {
       transform->Move(m_velocity * dt);
    }
+
+   if (g_input.GetKeyDown(SDL_SCANCODE_Z)) {
+     FireBullet();
+   }
+}
+
+void CBasicPlayerController::FireBullet()
+{
+   auto entity = shared_ptr<CEntity>(new CEntity());
+   auto entityTransform = entity->AddComponent<CTransform>();
+   auto sprite = entity->AddComponent<CSprite>();
+   entity->AddComponent<CBasicBulletController>();
+   
+   sprite->SetTexture("bullet.png");
+
+   if (auto transform = GetComponent<CTransform>()) {
+      glm::vec2 bulletStartPos = transform->GetLocalPosition() + glm::vec2(114.0f, 40.0f);
+      entityTransform->SetLocalPosition(bulletStartPos);
+   }
+
+   g_entities.AddEntity(entity);
 }

@@ -10,17 +10,17 @@ Input::~Input()
 
 }
 
-bool Input::GetKey(uint8_t key)
+uint8_t Input::GetKey(uint32_t key)
 {
    return m_currKeyStates[key];
 }
 
-bool Input::GetKeyDown(uint8_t key)
+uint8_t Input::GetKeyDown(uint32_t key)
 {
    return m_currKeyStates[key] && !m_prevKeyStates[key];
 }
 
-bool Input::GetKeyUp(uint8_t key)
+uint8_t Input::GetKeyUp(uint32_t key)
 {
    return !m_currKeyStates[key] && m_prevKeyStates[key];
 }

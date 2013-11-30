@@ -132,6 +132,7 @@
     <ClCompile Include="AjaxUtil.cc" />
     <ClCompile Include="Algebra.cc" />
     <ClCompile Include="CApplication.cc" />
+    <ClCompile Include="CBasicBulletController.cc" />
     <ClCompile Include="CBasicPlayerController.cc" />
     <ClCompile Include="CComponent.cc" />
     <ClCompile Include="CEntity.cc" />
@@ -146,6 +147,7 @@
     <ClInclude Include="AjaxMath.h" />
     <ClInclude Include="AjaxUtil.h" />
     <ClInclude Include="CApplication.h" />
+    <ClInclude Include="CBasicBulletController.h" />
     <ClInclude Include="CBasicPlayerController.h" />
     <ClInclude Include="CComponent.h" />
     <ClInclude Include="CEntity.h" />
