@@ -16,7 +16,7 @@ public:
 
 protected:
    void Start() override;
-   void Update() override;
+   void Update(float dt) override;
 
 private:
    glm::vec2 m_velocity;

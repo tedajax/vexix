@@ -27,7 +27,7 @@ public:
    }
 
    void RequestStart();
-   void RequestUpdate();
+   void RequestUpdate(float dt);
    void RequestRender();
 
    void SetEnabled(bool enabled);
@@ -40,6 +40,6 @@ protected:
    weak_ptr<CEntity> m_entity;
 
    virtual void Start();
-   virtual void Update();
+   virtual void Update(float dt);
    virtual void Render();
 };

@@ -32,10 +32,10 @@ void CEntityManager::Start()
    }
 }
 
-void CEntityManager::Update()
+void CEntityManager::Update(float dt)
 {
    for (auto &e : m_entities) {
-      e->RequestUpdate();
+      e->RequestUpdate(dt);
    }
 }
 

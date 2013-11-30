@@ -32,10 +32,10 @@ void CComponent::RequestStart()
    }
 }
 
-void CComponent::RequestUpdate()
+void CComponent::RequestUpdate(float dt)
 {
    if (m_enabled) {
-      this->Update();
+      this->Update(dt);
    }
 }
 
@@ -51,7 +51,7 @@ void CComponent::Start()
 
 }
 
-void CComponent::Update()
+void CComponent::Update(float dt)
 {
 
 }

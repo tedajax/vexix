@@ -25,11 +25,11 @@ void CEntity::RequestStart()
    }
 }
 
-void CEntity::RequestUpdate()
+void CEntity::RequestUpdate(float dt)
 {
    if (m_enabled) {
       for (auto &kvp : m_components) {
-         kvp.second->RequestUpdate();
+         kvp.second->RequestUpdate(dt);
       }
    }
 }

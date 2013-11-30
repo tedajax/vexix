@@ -26,7 +26,7 @@ public:
    vector<shared_ptr<CEntity>> FindEntities(string name);
 
    void Start();
-   void Update();
+   void Update(float dt);
    void Render();
 
 private:

@@ -4,6 +4,8 @@
 #include "CTransform.h"
 #include "CBasicPlayerController.h"
 
+using namespace std::chrono;
+
 CApplication::CApplication()
 {
    m_running = true;
@@ -28,13 +30,25 @@ int32_t CApplication::OnExecute()
 
    m_entities.Start();
 
+   const int FRAMES_PER_SECOND = 60;
+   const float MS_PER_FRAME = 1000.0f / (float)FRAMES_PER_SECOND;
+   float currentMilliseconds = 0.0f;
+
+   ::system_clock::time_point prevTime, currTime;
+   currTime = ::high_resolution_clock::now();
+
    SDL_Event sdlEvent;
    while (m_running) {
       while (SDL_PollEvent(&sdlEvent)) {
-         OnEvent(&sdlEvent);
+         OnEvent(sdlEvent);
       }
 
-      OnUpdate();
+      prevTime = currTime;
+      currTime = ::high_resolution_clock::now();
+
+      float dt = duration_cast<::milliseconds>(currTime - prevTime).count() / 1000.0f;
+
+      OnUpdate(dt);
       OnRender();
    }
 
@@ -79,25 +93,25 @@ bool CApplication::OnInit()
    return true;
 }
 
-void CApplication::OnEvent(SDL_Event *sdlEvent)
+void CApplication::OnEvent(const SDL_Event &sdlEvent)
 {
-   switch (sdlEvent->type) {
+   switch (sdlEvent.type) {
    case SDL_QUIT:
       m_running = false;
       break;
 
    case SDL_KEYDOWN:
-      if (sdlEvent->key.keysym.sym == SDLK_ESCAPE) {
+      if (sdlEvent.key.keysym.sym == SDLK_ESCAPE) {
          m_running = false;
       }
       break;
    }
 }
 
-void CApplication::OnUpdate()
+void CApplication::OnUpdate(float dt)
 {
    g_input.Update();
-   m_entities.Update();
+   m_entities.Update(dt);
 }
 
 void CApplication::OnRender()

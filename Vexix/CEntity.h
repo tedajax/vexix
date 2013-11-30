@@ -26,7 +26,7 @@ public:
    void SetName(std::string name);
 
    void RequestStart();
-   void RequestUpdate();
+   void RequestUpdate(float dt);
    void RequestRender();
 
    template <typename T>

@@ -13,10 +13,10 @@ CBasicPlayerController::~CBasicPlayerController()
 void CBasicPlayerController::Start()
 {
    m_transform = GetComponent<CTransform>();
-   m_speed = 10.0f;
+   m_speed = 640.0f;
 }
 
-void CBasicPlayerController::Update()
+void CBasicPlayerController::Update(float dt)
 {
    m_velocity = ajx::vec2::zero;
 
@@ -35,6 +35,6 @@ void CBasicPlayerController::Update()
    }
 
    if (auto transform = m_transform.lock()) {
-      transform->Move(m_velocity);
+      transform->Move(m_velocity * dt);
    }
 }

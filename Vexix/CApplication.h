@@ -5,6 +5,7 @@
 #include <cstdint>
 #include <memory>
 #include <iostream>
+#include <chrono>
 #include "AjaxUtil.h"
 #include "ResourceManager.h"
 #include "CEntityManager.h"
@@ -23,8 +24,8 @@ public:
    int32_t OnExecute();
 
    bool OnInit();
-   void OnEvent(SDL_Event *sdlEvent);
-   void OnUpdate();
+   void OnEvent(const SDL_Event &sdlEvent);
+   void OnUpdate(float dt);
    void OnRender();
    void OnCleanup();
 
