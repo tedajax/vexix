@@ -25,6 +25,9 @@ public:
    std::string GetName();
    void SetName(std::string name);
 
+   void Destroy();
+   bool ShouldDestroy();
+
    void RequestStart();
    void RequestUpdate(float dt);
    void RequestRender();
@@ -58,6 +61,7 @@ public:
    
 private:
    bool m_enabled;
+   bool m_destroy;
    std::string m_name;
    map<std::type_index, shared_ptr<CComponent>> m_components;
 };

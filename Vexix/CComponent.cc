@@ -48,7 +48,7 @@ void CComponent::RequestRender()
 
 void CComponent::Start()
 {
-
+   
 }
 
 void CComponent::Update(float dt)

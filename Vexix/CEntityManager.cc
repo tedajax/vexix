@@ -44,10 +44,20 @@ void CEntityManager::Update(float dt)
 {
    for (auto &e : m_entities) {
       e->RequestUpdate(dt);
+      if (e->ShouldDestroy()) {
+         m_removeQueue.push(e);
+      }
+   }
+
+   while (m_removeQueue.size() > 0) {
+      auto e = m_removeQueue.front();
+      DEBUG_MSGLN("Removing Entity " + e->GetName());
+      m_entities.erase(std::remove(m_entities.begin(), m_entities.end(), e), m_entities.end());
+      m_removeQueue.pop();
    }
 
    while (m_addQueue.size() > 0) {
-      shared_ptr<CEntity> e = m_addQueue.front();
+      auto e = m_addQueue.front();
       e->RequestStart();
       m_entities.push_back(e);
       m_addQueue.pop();

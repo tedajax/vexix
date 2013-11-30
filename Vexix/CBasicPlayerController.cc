@@ -46,6 +46,7 @@ void CBasicPlayerController::Update(float dt)
 void CBasicPlayerController::FireBullet()
 {
    auto entity = shared_ptr<CEntity>(new CEntity());
+   entity->SetName("Bullet");
    auto entityTransform = entity->AddComponent<CTransform>();
    auto sprite = entity->AddComponent<CSprite>();
    entity->AddComponent<CBasicBulletController>();

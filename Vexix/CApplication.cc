@@ -22,6 +22,7 @@ int32_t CApplication::OnExecute()
    shared_ptr<CSprite> sprite = entity->GetComponent<CSprite>();
    entity->AddComponent<CTransform>();
    entity->AddComponent<CBasicPlayerController>();
+   entity->SetName("PlayerShip");
    g_entities.AddEntityImmediately(entity);
    
    g_resources.LoadResource<Texture>("ship.png");
