@@ -24,9 +24,13 @@ int32_t CApplication::OnExecute()
    entity->AddComponent<CBasicPlayerController>(shared_ptr<CBasicPlayerController>(new CBasicPlayerController()));
    m_entities.AddEntity(entity);
    
-   g_resources.LoadResource<Texture>("hello.png");
-   shared_ptr<SDL_Texture> texture = g_resources.Get<Texture>("hello.png")->GetTexture();
+   g_resources.LoadResource<Texture>("ship.png");
+   shared_ptr<SDL_Texture> texture = g_resources.Get<Texture>("ship.png")->GetTexture();
    sprite->SetTexture(texture);
+
+   auto transform = entity->GetComponent<CTransform>();
+   transform->Rotate(90.0f);
+   transform->SetLocalScale(glm::vec2(0.3f, 0.5f));
 
    m_entities.Start();
 

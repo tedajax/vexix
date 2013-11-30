@@ -54,21 +54,33 @@ SDL_Rect CSprite::RectFromTransform()
 {
    SDL_Rect result;
 
+   result.x = 0;
+   result.y = 0;
+   result.w = m_width;
+   result.h = m_height;
+
    if (auto transform = m_transform.lock()) {
       result.x = (int32_t)transform->GetLocalPosition().x;
       result.y = (int32_t)transform->GetLocalPosition().y;
-   } else {
-      result.x = 0;
-      result.y = 0;
+      result.w *= transform->GetLocalScale().x;
+      result.h *= transform->GetLocalScale().y;
    }
-
-   result.w = m_width;
-   result.h = m_height;
+   
    return result;
 }
 
 void CSprite::Render()
 {
    SDL_Rect posRect = RectFromTransform();
-   SDL_RenderCopy(g_application.Renderer().get(), m_texture.get(), nullptr, &posRect);
+   float rotation = 0.0f;
+   if (auto transform = m_transform.lock()) {
+      rotation = transform->GetLocalRotation();
+   }
+   SDL_RenderCopyEx(g_application.Renderer().get(),
+                    m_texture.get(),
+                    nullptr,
+                    &posRect,
+                    rotation,
+                    nullptr,
+                    SDL_FLIP_NONE);
 }
