@@ -3,8 +3,11 @@
 #include "CSprite.h"
 #include "CTransform.h"
 #include "CBasicPlayerController.h"
+#include "EntityFactory.h"
+#include "tinyxml2.h"
 
 using namespace std::chrono;
+using namespace tinyxml2;
 
 CApplication::CApplication()
 {
@@ -17,14 +20,16 @@ int32_t CApplication::OnExecute()
       return -1;
    }
 
-   shared_ptr<CEntity> entity = shared_ptr<CEntity>(new CEntity());
+   shared_ptr<CEntity> entity = EntityFactory::Instantiate();
+   
    entity->AddComponent<CSprite>();
    shared_ptr<CSprite> sprite = entity->GetComponent<CSprite>();
-   entity->AddComponent<CTransform>();
    entity->AddComponent<CBasicPlayerController>();
    entity->SetName("PlayerShip");
-   g_entities.AddEntityImmediately(entity);
-   
+      
+   XMLDocument doc;
+   doc.LoadFile("Assets/Data/ship.entity");
+
    g_resources.LoadResource<Texture>("ship.png");
    g_resources.LoadResource<Texture>("bullet.png");
    shared_ptr<SDL_Texture> texture = g_resources.Get<Texture>("ship.png")->GetTexture();

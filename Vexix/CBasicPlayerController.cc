@@ -12,7 +12,8 @@ CBasicPlayerController::~CBasicPlayerController()
 
 void CBasicPlayerController::Start()
 {
-   m_transform = GetComponent<CTransform>();
+   Transform()->SetLocalPosition(glm::vec2(32.0f, 296.0f));
+
    m_speed = 640.0f;
 }
 
@@ -34,12 +35,10 @@ void CBasicPlayerController::Update(float dt)
       m_velocity += ajx::vec2::unit_y * m_speed;
    }
 
-   if (auto transform = m_transform.lock()) {
-      transform->Move(m_velocity * dt);
-   }
-
+   Transform()->Move(m_velocity * dt);
+   
    if (g_input.GetKeyDown(SDL_SCANCODE_Z)) {
-     FireBullet();
+      FireBullet();
    }
 }
 
@@ -50,7 +49,7 @@ void CBasicPlayerController::FireBullet()
    auto entityTransform = entity->AddComponent<CTransform>();
    auto sprite = entity->AddComponent<CSprite>();
    entity->AddComponent<CBasicBulletController>();
-   
+
    sprite->SetTexture("bullet.png");
 
    if (auto transform = GetComponent<CTransform>()) {

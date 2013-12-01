@@ -105,10 +105,21 @@ public:
    Texture();
    ~Texture();
 
-   ResourceManager::ResourceLoadResult Load(string filename);
+   ResourceManager::ResourceLoadResult Load(string filename) override;
 
    shared_ptr<SDL_Texture> GetTexture();
 
 private:
    shared_ptr<SDL_Texture> m_texture;
+};
+
+class Prefab : public Resource
+{
+public:
+   Prefab();
+   ~Prefab();
+
+   ResourceManager::ResourceLoadResult Load(string filename) override;
+
+
 };

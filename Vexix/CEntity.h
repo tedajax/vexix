@@ -6,10 +6,13 @@
 #include <string>
 #include <typeindex>
 #include "CComponent.h"
+#include "CTransform.h"
 
 using std::map;
 using std::shared_ptr;
 using std::weak_ptr;
+
+class CTransform;
 
 class CEntity : public std::enable_shared_from_this<CEntity>
 {
@@ -58,10 +61,13 @@ public:
 
       return component;
    }
+
+   shared_ptr<CTransform> Transform();
    
 private:
    bool m_enabled;
    bool m_destroy;
    std::string m_name;
+   shared_ptr<CTransform> m_transform;
    map<std::type_index, shared_ptr<CComponent>> m_components;
 };

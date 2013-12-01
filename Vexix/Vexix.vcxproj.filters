@@ -72,6 +72,9 @@
     <ClCompile Include="CBasicBulletController.cc">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
+    <ClCompile Include="EntityFactory.cc">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CApplication.h">
@@ -111,6 +114,12 @@
       <Filter>Header Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="CBasicBulletController.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityFactory.h">
+      <Filter>Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Components.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
   </ItemGroup>

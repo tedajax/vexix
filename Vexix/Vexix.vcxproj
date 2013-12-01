@@ -139,6 +139,7 @@
     <ClCompile Include="CEntityManager.cc" />
     <ClCompile Include="CSprite.cc" />
     <ClCompile Include="CTransform.cc" />
+    <ClCompile Include="EntityFactory.cc" />
     <ClCompile Include="Input.cc" />
     <ClCompile Include="main.cc" />
     <ClCompile Include="ResourceManager.cc" />
@@ -153,8 +154,10 @@
     <ClInclude Include="CEntity.h" />
     <ClInclude Include="Algebra.h" />
     <ClInclude Include="CEntityManager.h" />
+    <ClInclude Include="Components.h" />
     <ClInclude Include="CSprite.h" />
     <ClInclude Include="CTransform.h" />
+    <ClInclude Include="EntityFactory.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="ResourceManager.h" />
   </ItemGroup>

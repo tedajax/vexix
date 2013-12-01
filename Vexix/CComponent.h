@@ -7,6 +7,7 @@ using std::shared_ptr;
 using std::weak_ptr;
 
 class CEntity;
+class CTransform;
 
 class CComponent
 {
@@ -25,6 +26,8 @@ public:
       }
       return nullptr;
    }
+
+   shared_ptr<CTransform> Transform();
 
    void RequestStart();
    void RequestUpdate(float dt);

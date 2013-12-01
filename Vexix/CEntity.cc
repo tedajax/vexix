@@ -19,6 +19,15 @@ bool CEntity::ShouldDestroy() { return m_destroy; }
 std::string CEntity::GetName() { return m_name; }
 void CEntity::SetName(std::string name) { m_name = name; }
 
+shared_ptr<CTransform> CEntity::Transform()
+{
+   if (!m_transform) {
+      m_transform = GetComponent<CTransform>();
+   }
+   
+   return m_transform;
+}
+
 void CEntity::RequestStart()
 {
    if (m_enabled) {

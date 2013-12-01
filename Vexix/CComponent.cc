@@ -1,4 +1,5 @@
 #include "CComponent.h"
+#include "CEntity.h"
 
 CComponent::CComponent()
 {
@@ -18,6 +19,14 @@ CComponent *CComponent::Create(shared_ptr<CEntity> entity)
 CComponent::~CComponent()
 {
 
+}
+
+shared_ptr<CTransform> CComponent::Transform()
+{
+   if (auto entity = m_entity.lock()) {
+      return entity->Transform();
+   }
+   return nullptr;
 }
 
 void CComponent::SetEnabled(bool enabled) { m_enabled = enabled; }
