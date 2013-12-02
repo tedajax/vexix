@@ -121,5 +121,6 @@ public:
 
    ResourceManager::ResourceLoadResult Load(string filename) override;
 
-
+private:
+   vector<std::string> m_componentNames;
 };

@@ -1,0 +1,6 @@
+message EntityDesc {
+	required string name = 1;
+	repeated group Component = 2 {
+		required string name = 3;
+	}
+}
