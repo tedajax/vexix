@@ -37,7 +37,7 @@ void CBasicPlayerController::Update(float dt)
 
    Transform()->Move(m_velocity * dt);
    
-   if (g_input.GetKeyDown(SDL_SCANCODE_Z)) {
+   if (g_input.GetKey(SDL_SCANCODE_Z)) {
       FireBullet();
    }
 }

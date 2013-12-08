@@ -2,7 +2,7 @@
 
 CEntityManager::CEntityManager()
 {
-
+   m_entityAddMode = Immediate;
 }
 
 CEntityManager::~CEntityManager()
@@ -13,7 +13,7 @@ CEntityManager::~CEntityManager()
 shared_ptr<CEntity> CEntityManager::AddEntityImmediately(shared_ptr<CEntity> entity)
 {
    if (entity) {
-      m_entities.push_back(entity);
+      AddEntityToList(entity);
    }
 
    return entity;
@@ -21,6 +21,10 @@ shared_ptr<CEntity> CEntityManager::AddEntityImmediately(shared_ptr<CEntity> ent
 
 shared_ptr<CEntity> CEntityManager::AddEntity(shared_ptr<CEntity> entity)
 {
+   if (m_entityAddMode == Immediate) {
+      return AddEntityImmediately(entity);
+   }
+
    if (entity) {
       m_addQueue.push(entity);
    }
@@ -36,37 +40,69 @@ void CEntityManager::RemoveEntity(shared_ptr<CEntity> entity)
 void CEntityManager::Start()
 {
    for (auto &e : m_entities) {
+      if (!e) { continue; }
       e->RequestStart();
    }
+
+   m_entityAddMode = Queued;
 }
 
 void CEntityManager::Update(float dt)
 {
+   uint32_t index = 0;
    for (auto &e : m_entities) {
-      e->RequestUpdate(dt);
-      if (e->ShouldDestroy()) {
-         m_removeQueue.push(e);
+      if (e) {
+         e->RequestUpdate(dt);
+         if (e->ShouldDestroy()) {
+            m_removeQueue.push(index);
+         }
       }
+      ++index;
    }
+   
+   RemoveFlaggedEntities();
+   AddQueuedEntities();
+}
 
-   while (m_removeQueue.size() > 0) {
-      auto e = m_removeQueue.front();
-      DEBUG_MSGLN("Removing Entity " + e->GetName());
-      m_entities.erase(std::remove(m_entities.begin(), m_entities.end(), e), m_entities.end());
+void CEntityManager::RemoveFlaggedEntities()
+{
+   const uint32_t MAX_REMOVED_PER_FRAME = 100000;
+   uint32_t removedThisFrame = 0;
+   while (m_removeQueue.size() > 0 && removedThisFrame < MAX_REMOVED_PER_FRAME) {
+      auto index = m_removeQueue.front();
+      auto e = m_entities[index];
+      m_entities[index] = nullptr;
+      m_availableIndices.push(index);
       m_removeQueue.pop();
+      ++removedThisFrame;
    }
+}
 
+void CEntityManager::AddQueuedEntities()
+{
    while (m_addQueue.size() > 0) {
       auto e = m_addQueue.front();
       e->RequestStart();
-      m_entities.push_back(e);
+      AddEntityToList(e);
       m_addQueue.pop();
+   }
+}
+
+void CEntityManager::AddEntityToList(shared_ptr<CEntity> entity)
+{
+   if (m_availableIndices.size() > 0) {
+      uint32_t index = m_availableIndices.top();
+      m_availableIndices.pop();
+      m_entities[index] = entity;
+   } else {
+      m_entities.push_back(entity);
    }
 }
 
 void CEntityManager::Render()
 {
    for (auto &e : m_entities) {
+      if (!e) { continue; }
       e->RequestRender();
    }
 }
@@ -74,6 +110,7 @@ void CEntityManager::Render()
 shared_ptr<CEntity> CEntityManager::FindEntity(string name)
 {
    for (auto &e : m_entities) {
+      if (!e) { continue; }
       if (e->GetName() == name) {
          return e;
       }
@@ -85,6 +122,7 @@ vector<shared_ptr<CEntity>> CEntityManager::FindEntities(string name)
 {
    vector<shared_ptr<CEntity>> results;
    for (auto &e : m_entities) {
+      if (!e) { continue; }
       if (e->GetName() == name) {
          results.push_back(e);
       }

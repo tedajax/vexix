@@ -20,25 +20,20 @@ int32_t CApplication::OnExecute()
       return -1;
    }
 
-   shared_ptr<CEntity> entity = CEntityFactory::Instantiate();
-   
-   entity->AddComponent<CSprite>();
-   shared_ptr<CSprite> sprite = entity->GetComponent<CSprite>();
-   entity->AddComponent<CBasicPlayerController>();
-   entity->SetName("PlayerShip");
-      
-   XMLDocument doc;
-   doc.LoadFile("Assets/Data/ship.entity");
-
    g_resources.LoadResource<Texture>("ship.png");
+   g_resources.LoadResource<Texture>("enemyship.png");
    g_resources.LoadResource<Texture>("bullet.png");
-   shared_ptr<SDL_Texture> texture = g_resources.Get<Texture>("ship.png")->GetTexture();
-   sprite->SetTexture(texture);
 
-   g_entities.Start();
+   shared_ptr<CEntity> playerShip = CEntityFactory::Instantiate();
+   auto sprite = playerShip->AddComponent<CSprite>();
+   sprite->SetTexture(g_resources.Get<Texture>("ship.png")->GetTexture());
+   playerShip->AddComponent<CBasicPlayerController>();
+   playerShip->SetName("PlayerShip"); 
 
    ::system_clock::time_point prevTime, currTime;
    currTime = ::high_resolution_clock::now();
+
+   g_entities.Start();
 
    SDL_Event sdlEvent;
    while (m_running) {

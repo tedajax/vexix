@@ -13,7 +13,7 @@ CEntity::~CEntity()
 void CEntity::SetEnabled(bool enabled) { m_enabled = enabled; }
 bool CEntity::IsEnabled() { return m_enabled; }
 
-void CEntity::Destroy() { m_destroy = true; }
+void CEntity::Destroy() { m_destroy = true; m_enabled = false; }
 bool CEntity::ShouldDestroy() { return m_destroy; }
 
 std::string CEntity::GetName() { return m_name; }
