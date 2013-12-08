@@ -96,7 +96,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;libprotobuf.lib;libprotobuf-lite.lib;libprotoc.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
@@ -142,7 +142,9 @@
     <ClCompile Include="EntityFactory.cc" />
     <ClCompile Include="Input.cc" />
     <ClCompile Include="main.cc" />
+    <ClCompile Include="ProtoBuffs\entity.pb.cc" />
     <ClCompile Include="ResourceManager.cc" />
+    <ClCompile Include="tinyxml2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AjaxMath.h" />
@@ -159,7 +161,13 @@
     <ClInclude Include="CTransform.h" />
     <ClInclude Include="EntityFactory.h" />
     <ClInclude Include="Input.h" />
+    <ClInclude Include="ProtoBuffs\entity.pb.h" />
     <ClInclude Include="ResourceManager.h" />
+    <ClInclude Include="tinyxml2.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\ship.prefab" />
+    <None Include="ProtoBuffs\entity.proto" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

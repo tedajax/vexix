@@ -31,6 +31,12 @@
     <Filter Include="Source Files\Resources">
       <UniqueIdentifier>{18c95da1-e6bb-4550-9306-0d8a3c85ca8b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Data">
+      <UniqueIdentifier>{f680e608-09ab-4c79-99b7-8e660352afa1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Protocol Buffers">
+      <UniqueIdentifier>{361090d5-8547-4326-9415-e4cb6498e4c8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cc">
@@ -74,6 +80,12 @@
     </ClCompile>
     <ClCompile Include="EntityFactory.cc">
       <Filter>Source Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="tinyxml2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ProtoBuffs\entity.pb.cc">
+      <Filter>Protocol Buffers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -122,5 +134,19 @@
     <ClInclude Include="Components.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
+    <ClInclude Include="tinyxml2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ProtoBuffs\entity.pb.h">
+      <Filter>Protocol Buffers</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\ship.prefab">
+      <Filter>Data</Filter>
+    </None>
+    <None Include="ProtoBuffs\entity.proto">
+      <Filter>Protocol Buffers</Filter>
+    </None>
   </ItemGroup>
 </Project>
