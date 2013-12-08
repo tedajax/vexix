@@ -7,7 +7,7 @@
 #include <iostream>
 #include <chrono>
 #include "AjaxUtil.h"
-#include "ResourceManager.h"
+#include "CResourceManager.h"
 #include "CEntityManager.h"
 #include "Input.h"
 
@@ -33,6 +33,6 @@ public:
 };
 
 extern CApplication g_application;
-extern ResourceManager g_resources;
+extern CResourceManager g_resources;
 extern CEntityManager g_entities;
 extern Input g_input;

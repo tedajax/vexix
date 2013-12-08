@@ -3,7 +3,7 @@
 #include "CSprite.h"
 #include "CTransform.h"
 #include "CBasicPlayerController.h"
-#include "EntityFactory.h"
+#include "CEntityFactory.h"
 #include "tinyxml2.h"
 
 using namespace std::chrono;
@@ -20,7 +20,7 @@ int32_t CApplication::OnExecute()
       return -1;
    }
 
-   shared_ptr<CEntity> entity = EntityFactory::Instantiate();
+   shared_ptr<CEntity> entity = CEntityFactory::Instantiate();
    
    entity->AddComponent<CSprite>();
    shared_ptr<CSprite> sprite = entity->GetComponent<CSprite>();
@@ -138,6 +138,6 @@ shared_ptr<SDL_Window> CApplication::Window() { return m_window; }
 shared_ptr<SDL_Renderer> CApplication::Renderer() { return m_renderer; }
 
 CApplication g_application;
-ResourceManager g_resources;
+CResourceManager g_resources;
 CEntityManager g_entities;
 Input g_input;

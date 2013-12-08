@@ -23,11 +23,11 @@ class Resource;
 
 template <class T> struct is_resource : false_type {};
 
-class ResourceManager
+class CResourceManager
 {
 public:
-   ResourceManager();
-   ~ResourceManager();
+   CResourceManager();
+   ~CResourceManager();
 
    enum ResourceLoadResult {
       SUCCESS = 0,
@@ -82,7 +82,7 @@ public:
    Resource();
    virtual ~Resource();
 
-   virtual ResourceManager::ResourceLoadResult Load(string filename);
+   virtual CResourceManager::ResourceLoadResult Load(string filename);
 
    string GetName();
    string GetPath();
@@ -105,7 +105,7 @@ public:
    Texture();
    ~Texture();
 
-   ResourceManager::ResourceLoadResult Load(string filename) override;
+   CResourceManager::ResourceLoadResult Load(string filename) override;
 
    shared_ptr<SDL_Texture> GetTexture();
 
@@ -119,7 +119,7 @@ public:
    Prefab();
    ~Prefab();
 
-   ResourceManager::ResourceLoadResult Load(string filename) override;
+   CResourceManager::ResourceLoadResult Load(string filename) override;
 
 private:
    vector<std::string> m_componentNames;

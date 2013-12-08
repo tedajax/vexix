@@ -1,12 +1,12 @@
-#include "ResourceManager.h"
+#include "CResourceManager.h"
 #include "CApplication.h"
 
-ResourceManager::ResourceManager()
+CResourceManager::CResourceManager()
 {
    m_currentId = 1;
 }
 
-ResourceManager::~ResourceManager()
+CResourceManager::~CResourceManager()
 {
    //todo
 }
@@ -27,10 +27,10 @@ string Resource::GetFullFileName() { return m_filename; }
 uint32_t Resource::GetResourceID() { return m_id; }
 void Resource::SetResourceID(uint32_t id) { m_id = id; }
 
-ResourceManager::ResourceLoadResult Resource::Load(string filename)
+CResourceManager::ResourceLoadResult Resource::Load(string filename)
 {
    GenerateNamesFromPath(filename);
-   return ResourceManager::SUCCESS;
+   return CResourceManager::SUCCESS;
 }
 
 void Resource::GenerateNamesFromPath(string filename)
@@ -56,7 +56,7 @@ Texture::~Texture()
 
 }
 
-ResourceManager::ResourceLoadResult Texture::Load(string filename)
+CResourceManager::ResourceLoadResult Texture::Load(string filename)
 {
    LOAD_MSG("Loading " + filename)
 
@@ -67,7 +67,7 @@ ResourceManager::ResourceLoadResult Texture::Load(string filename)
    if (!rawImage) {
       FAILED
       std::cout << SDL_GetError() << std::endl;
-      return ResourceManager::FILE_NOT_FOUND;
+      return CResourceManager::FILE_NOT_FOUND;
    }
    
    /*SDL_PixelFormat *format = SDL_GetWindowSurface(g_application.Window().get())->format;
@@ -88,12 +88,12 @@ ResourceManager::ResourceLoadResult Texture::Load(string filename)
    if (!m_texture) {
       FAILED
       std::cout << SDL_GetError() << std::endl;
-      return ResourceManager::FILE_PROCESSING_ERROR;
+      return CResourceManager::FILE_PROCESSING_ERROR;
    }
 
    DONE
 
-   return ResourceManager::SUCCESS;
+   return CResourceManager::SUCCESS;
 }
 
 shared_ptr<SDL_Texture> Texture::GetTexture() { return m_texture; }

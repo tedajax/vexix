@@ -96,7 +96,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;libprotobuf.lib;libprotobuf-lite.lib;libprotoc.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
@@ -139,11 +139,10 @@
     <ClCompile Include="CEntityManager.cc" />
     <ClCompile Include="CSprite.cc" />
     <ClCompile Include="CTransform.cc" />
-    <ClCompile Include="EntityFactory.cc" />
+    <ClCompile Include="CEntityFactory.cc" />
     <ClCompile Include="Input.cc" />
     <ClCompile Include="main.cc" />
-    <ClCompile Include="ProtoBuffs\entity.pb.cc" />
-    <ClCompile Include="ResourceManager.cc" />
+    <ClCompile Include="CResourceManager.cc" />
     <ClCompile Include="tinyxml2.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -159,15 +158,13 @@
     <ClInclude Include="Components.h" />
     <ClInclude Include="CSprite.h" />
     <ClInclude Include="CTransform.h" />
-    <ClInclude Include="EntityFactory.h" />
+    <ClInclude Include="CEntityFactory.h" />
     <ClInclude Include="Input.h" />
-    <ClInclude Include="ProtoBuffs\entity.pb.h" />
-    <ClInclude Include="ResourceManager.h" />
+    <ClInclude Include="CResourceManager.h" />
     <ClInclude Include="tinyxml2.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\ship.prefab" />
-    <None Include="ProtoBuffs\entity.proto" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
