@@ -9,124 +9,117 @@
 using namespace std::chrono;
 using namespace tinyxml2;
 
-CApplication::CApplication()
-{
-   m_running = true;
+CApplication::CApplication() {
+    m_running = true;
 }
 
-int32_t CApplication::OnExecute()
-{
-   if (OnInit() == false) {
-      return -1;
-   }
+int32_t CApplication::OnExecute() {
+    if (OnInit() == false) {
+        return -1;
+    }
 
-   g_resources.LoadResource<Texture>("ship.png");
-   g_resources.LoadResource<Texture>("enemyship.png");
-   g_resources.LoadResource<Texture>("bullet.png");
+    g_resources.LoadResource<Texture>("ship.png");
+    g_resources.LoadResource<Texture>("enemyship.png");
+    g_resources.LoadResource<Texture>("bullet.png");
 
-   shared_ptr<CEntity> playerShip = CEntityFactory::Instantiate();
-   auto sprite = playerShip->AddComponent<CSprite>();
-   sprite->SetTexture(g_resources.Get<Texture>("ship.png")->GetTexture());
-   playerShip->AddComponent<CBasicPlayerController>();
-   playerShip->SetName("PlayerShip"); 
+    shared_ptr<CEntity> playerShip = CEntityFactory::Instantiate();
+    auto sprite = playerShip->AddComponent<CSprite>();
+    sprite->SetTexture(g_resources.Get<Texture>("ship.png")->GetTexture());
+    playerShip->AddComponent<CBasicPlayerController>();
+    playerShip->SetName("PlayerShip");
 
-   ::system_clock::time_point prevTime, currTime;
-   currTime = ::high_resolution_clock::now();
+    ::system_clock::time_point prevTime, currTime;
+    currTime = ::high_resolution_clock::now();
 
-   g_entities.Start();
+    g_entities.Start();
 
-   SDL_Event sdlEvent;
-   while (m_running) {
-      while (SDL_PollEvent(&sdlEvent)) {
-         OnEvent(sdlEvent);
-      }
+    SDL_Event sdlEvent;
+    while (m_running) {
+        while (SDL_PollEvent(&sdlEvent)) {
+            OnEvent(sdlEvent);
+        }
 
-      prevTime = currTime;
-      currTime = ::high_resolution_clock::now();
+        prevTime = currTime;
+        currTime = ::high_resolution_clock::now();
 
-      float dt = duration_cast<::milliseconds>(currTime - prevTime).count() / 1000.0f;
+        float dt = duration_cast<::milliseconds>(currTime - prevTime).count() / 1000.0f;
 
-      OnUpdate(dt);
-      OnRender();
-   }
+        OnUpdate(dt);
+        OnRender();
+    }
 
-   OnCleanup();
+    OnCleanup();
 
-   return 0;
+    return 0;
 }
 
-bool CApplication::OnInit()
-{
-   LOAD_MSG("Initializing SDL")
-   if (SDL_Init(SDL_INIT_EVERYTHING) == -1) {
-      std::cout << SDL_GetError() << std::endl;
-      return false;
-   }
-   DONE
+bool CApplication::OnInit() {
+    LOAD_MSG("Initializing SDL")
+    if (SDL_Init(SDL_INIT_EVERYTHING) == -1) {
+        std::cout << SDL_GetError() << std::endl;
+        return false;
+    }
+    DONE
 
-   LOAD_MSG("Initializing SDL_image")
-   int32_t imgFlags = IMG_INIT_PNG | IMG_INIT_JPG;
-   if (!(IMG_Init(imgFlags) & imgFlags)) {
-      std::cout << SDL_GetError() << std::endl;
-      return false;
-   }
-   DONE
+        LOAD_MSG("Initializing SDL_image")
+        int32_t imgFlags = IMG_INIT_PNG | IMG_INIT_JPG;
+    if (!(IMG_Init(imgFlags) & imgFlags)) {
+        std::cout << SDL_GetError() << std::endl;
+        return false;
+    }
+    DONE
 
-   LOAD_MSG("Creating window")
-   m_window = std::shared_ptr<SDL_Window>(SDL_CreateWindow("Vexix", 320, 100, 1280, 720, SDL_WINDOW_SHOWN), SDL_DestroyWindow);
-   if (m_window == nullptr) {
-      std::cout << SDL_GetError() << std::endl;
-      return false;
-   }
-   DONE
+        LOAD_MSG("Creating window")
+        m_window = std::shared_ptr<SDL_Window>(SDL_CreateWindow("Vexix", 320, 100, 1280, 720, SDL_WINDOW_SHOWN), SDL_DestroyWindow);
+    if (m_window == nullptr) {
+        std::cout << SDL_GetError() << std::endl;
+        return false;
+    }
+    DONE
 
-   LOAD_MSG("Creating renderer")
-   m_renderer = shared_ptr<SDL_Renderer>(
-      SDL_CreateRenderer(m_window.get(),
-                         -1,
-                         SDL_RENDERER_ACCELERATED),
-      SDL_DestroyRenderer);
+        LOAD_MSG("Creating renderer")
+        m_renderer = shared_ptr<SDL_Renderer>(
+        SDL_CreateRenderer(m_window.get(),
+        -1,
+        SDL_RENDERER_ACCELERATED),
+        SDL_DestroyRenderer);
 
-   if (m_renderer == nullptr) {
-      std::cout << SDL_GetError() << std::endl;
-      return false;
-   }   
-   DONE
-   
-   return true;
+    if (m_renderer == nullptr) {
+        std::cout << SDL_GetError() << std::endl;
+        return false;
+    }
+    DONE
+
+        return true;
 }
 
-void CApplication::OnEvent(const SDL_Event &sdlEvent)
-{
-   switch (sdlEvent.type) {
-   case SDL_QUIT:
-      m_running = false;
-      break;
+void CApplication::OnEvent(const SDL_Event &sdlEvent) {
+    switch (sdlEvent.type) {
+        case SDL_QUIT:
+            m_running = false;
+            break;
 
-   case SDL_KEYDOWN:
-      if (sdlEvent.key.keysym.sym == SDLK_ESCAPE) {
-         m_running = false;
-      }
-      break;
-   }
+        case SDL_KEYDOWN:
+            if (sdlEvent.key.keysym.sym == SDLK_ESCAPE) {
+                m_running = false;
+            }
+            break;
+    }
 }
 
-void CApplication::OnUpdate(float dt)
-{
-   g_input.Update();
-   g_entities.Update(dt);
+void CApplication::OnUpdate(float dt) {
+    g_input.Update();
+    g_entities.Update(dt);
 }
 
-void CApplication::OnRender()
-{
-   SDL_RenderClear(m_renderer.get());
-   g_entities.Render();
-   SDL_RenderPresent(m_renderer.get());
+void CApplication::OnRender() {
+    SDL_RenderClear(m_renderer.get());
+    g_entities.Render();
+    SDL_RenderPresent(m_renderer.get());
 }
 
-void CApplication::OnCleanup()
-{
-   SDL_Quit();
+void CApplication::OnCleanup() {
+    SDL_Quit();
 }
 
 shared_ptr<SDL_Window> CApplication::Window() { return m_window; }

@@ -23,6 +23,8 @@ protected:
 private:
    glm::vec2 m_velocity;
    float m_speed;
+   float m_rateOfFire;
+   float m_fireTime;
 
    void FireBullet();
 };

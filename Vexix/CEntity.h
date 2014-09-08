@@ -17,57 +17,55 @@ class CTransform;
 class CEntity : public std::enable_shared_from_this<CEntity>
 {
 public:
-   CEntity();
-   //todo: copy constructor
-   
-   ~CEntity();
+    CEntity();
+    //todo: copy constructor
 
-   void SetEnabled(bool enabled);
-   bool IsEnabled();
+    ~CEntity();
 
-   std::string GetName();
-   void SetName(std::string name);
+    void SetEnabled(bool enabled);
+    bool IsEnabled();
 
-   void Destroy();
-   bool ShouldDestroy();
+    std::string GetName();
+    void SetName(std::string name);
 
-   void RequestStart();
-   void RequestUpdate(float dt);
-   void RequestRender();
+    void Destroy();
+    bool ShouldDestroy();
 
-   template <typename T>
-   shared_ptr<T> GetComponent()
-   {
-      std::type_index index(typeid(T));
-      if (m_components.count(index) != 0) {
-         return std::static_pointer_cast<T>(m_components[index]);
-      } else {
-         return nullptr;
-      }
-   }
+    void RequestStart();
+    void RequestUpdate(float dt);
+    void RequestRender();
 
-   template <typename T>
-   shared_ptr<T> AddComponent()
-   {
-      shared_ptr<T> component(new T());
+    template <typename T>
+    shared_ptr<T> GetComponent() {
+        std::type_index index(typeid(T));
+        if (m_components.count(index) != 0) {
+            return std::static_pointer_cast<T>(m_components[index]);
+        } else {
+            return nullptr;
+        }
+    }
 
-      const CComponent *ref = component.get();
-      //not a component type
-      if (!ref) { return nullptr; }
+    template <typename T>
+    shared_ptr<T> AddComponent() {
+        shared_ptr<T> component(new T());
 
-      std::type_index index = std::type_index(typeid(component));
-      std::dynamic_pointer_cast<T, CComponent>(component)->SetEntity(shared_from_this());
-      m_components[std::type_index(typeid(*component))] = component;
+        const CComponent *ref = component.get();
+        //not a component type
+        if (!ref) { return nullptr; }
 
-      return component;
-   }
+        std::type_index index = std::type_index(typeid(component));
+        std::dynamic_pointer_cast<T, CComponent>(component)->SetEntity(shared_from_this());
+        m_components[std::type_index(typeid(*component))] = component;
 
-   shared_ptr<CTransform> Transform();
-   
+        return component;
+    }
+
+    shared_ptr<CTransform> Transform();
+
 private:
-   bool m_enabled;
-   bool m_destroy;
-   std::string m_name;
-   shared_ptr<CTransform> m_transform;
-   map<std::type_index, shared_ptr<CComponent>> m_components;
+    bool m_enabled;
+    bool m_destroy;
+    std::string m_name;
+    shared_ptr<CTransform> m_transform;
+    map<std::type_index, shared_ptr<CComponent>> m_components;
 };

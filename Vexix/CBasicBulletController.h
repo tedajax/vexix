@@ -8,13 +8,13 @@
 class CBasicBulletController : public CComponent
 {
 public:
-   CBasicBulletController();
-   ~CBasicBulletController();
+    CBasicBulletController();
+    ~CBasicBulletController();
 
 protected:
-   void Start() override;
-   void Update(float dt) override;
+    void Start() override;
+    void Update(float dt) override;
 
 private:
-   float m_speed;
+    float m_speed;
 };

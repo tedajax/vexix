@@ -12,37 +12,36 @@ class CTransform;
 class CComponent
 {
 public:
-   CComponent();
-   CComponent(shared_ptr<CEntity> entity);
-   
-   virtual CComponent *Create(shared_ptr<CEntity> entity);
-   virtual ~CComponent();
+    CComponent();
+    CComponent(shared_ptr<CEntity> entity);
 
-   template <typename T>
-   shared_ptr<T> GetComponent()
-   {
-      if (auto entity = m_entity.lock()) {
-         return entity->GetComponent<T>();
-      }
-      return nullptr;
-   }
+    virtual CComponent *Create(shared_ptr<CEntity> entity);
+    virtual ~CComponent();
 
-   shared_ptr<CTransform> Transform();
+    template <typename T>
+    shared_ptr<T> GetComponent() {
+        if (auto entity = m_entity.lock()) {
+            return entity->GetComponent<T>();
+        }
+        return nullptr;
+    }
 
-   void RequestStart();
-   void RequestUpdate(float dt);
-   void RequestRender();
+    shared_ptr<CTransform> Transform();
 
-   void SetEnabled(bool enabled);
-   bool IsEnabled();
+    void RequestStart();
+    void RequestUpdate(float dt);
+    void RequestRender();
 
-   void SetEntity(shared_ptr<CEntity> entity);
+    void SetEnabled(bool enabled);
+    bool IsEnabled();
+
+    void SetEntity(shared_ptr<CEntity> entity);
 
 protected:
-   bool m_enabled;
-   weak_ptr<CEntity> m_entity;
+    bool m_enabled;
+    weak_ptr<CEntity> m_entity;
 
-   virtual void Start();
-   virtual void Update(float dt);
-   virtual void Render();
+    virtual void Start();
+    virtual void Update(float dt);
+    virtual void Render();
 };

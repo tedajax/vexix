@@ -26,101 +26,100 @@ template <class T> struct is_resource : false_type {};
 class CResourceManager
 {
 public:
-   CResourceManager();
-   ~CResourceManager();
+    CResourceManager();
+    ~CResourceManager();
 
-   enum ResourceLoadResult {
-      SUCCESS = 0,
-      FILE_NOT_FOUND = 1,
-      FILE_ALREADY_LOADED = 2,
-      NOT_VALID_RESOURCE_TYPE = 3,
-      FILE_PROCESSING_ERROR = 4
-   };
+    enum ResourceLoadResult
+    {
+        SUCCESS = 0,
+        FILE_NOT_FOUND = 1,
+        FILE_ALREADY_LOADED = 2,
+        NOT_VALID_RESOURCE_TYPE = 3,
+        FILE_PROCESSING_ERROR = 4
+    };
 
-   template <class T>
-   ResourceLoadResult LoadResource(const string &filename)
-   {
-      shared_ptr<T> newResource = shared_ptr<T>(new T());
+    template <class T>
+    ResourceLoadResult LoadResource(const string &filename) {
+        shared_ptr<T> newResource = shared_ptr<T>(new T());
 
-      const Resource *ref = newResource.get();
-      if (!ref) { return NOT_VALID_RESOURCE_TYPE; }
+        const Resource *ref = newResource.get();
+        if (!ref) { return NOT_VALID_RESOURCE_TYPE; }
 
-      string assetPath = DEFAULT_ASSET_PATH + filename;
-      
-      ResourceLoadResult loadResult = newResource->Load(assetPath);
-      if (loadResult == SUCCESS) {         
-         auto insResult = m_resources.insert(std::make_pair(filename, newResource));
-         if (!insResult.second) {
-            return FILE_ALREADY_LOADED;
-         }
+        string assetPath = DEFAULT_ASSET_PATH + filename;
 
-         newResource->SetResourceID(m_currentId);         
-         ++m_currentId;
-      }
+        ResourceLoadResult loadResult = newResource->Load(assetPath);
+        if (loadResult == SUCCESS) {
+            auto insResult = m_resources.insert(std::make_pair(filename, newResource));
+            if (!insResult.second) {
+                return FILE_ALREADY_LOADED;
+            }
 
-      return loadResult;
-   }
+            newResource->SetResourceID(m_currentId);
+            ++m_currentId;
+        }
 
-   template <class T>
-   shared_ptr<T> Get(const string &filename)
-   {
-      if (m_resources.find(filename) != m_resources.end()) {
-         return std::dynamic_pointer_cast<T>(m_resources[filename]);
-      } else {
-         return nullptr;
-      }
-   }
+        return loadResult;
+    }
+
+    template <class T>
+    shared_ptr<T> Get(const string &filename) {
+        if (m_resources.find(filename) != m_resources.end()) {
+            return std::dynamic_pointer_cast<T>(m_resources[filename]);
+        } else {
+            return nullptr;
+        }
+    }
 
 private:
-   map<string, shared_ptr<Resource>> m_resources;
-   uint32_t m_currentId;
+    map<string, shared_ptr<Resource>> m_resources;
+    uint32_t m_currentId;
 };
 
 class Resource
 {
 public:
-   Resource();
-   virtual ~Resource();
+    Resource();
+    virtual ~Resource();
 
-   virtual CResourceManager::ResourceLoadResult Load(string filename);
+    virtual CResourceManager::ResourceLoadResult Load(string filename);
 
-   string GetName();
-   string GetPath();
-   string GetFullFileName();
-   uint32_t GetResourceID();
-   void SetResourceID(uint32_t id);
+    string GetName();
+    string GetPath();
+    string GetFullFileName();
+    uint32_t GetResourceID();
+    void SetResourceID(uint32_t id);
 
 protected:
-   void GenerateNamesFromPath(string filename);
+    void GenerateNamesFromPath(string filename);
 
-   string m_name;
-   string m_filename;
-   string m_path;
-   uint32_t m_id;
+    string m_name;
+    string m_filename;
+    string m_path;
+    uint32_t m_id;
 };
 
 class Texture : public Resource
 {
 public:
-   Texture();
-   ~Texture();
+    Texture();
+    ~Texture();
 
-   CResourceManager::ResourceLoadResult Load(string filename) override;
+    CResourceManager::ResourceLoadResult Load(string filename) override;
 
-   shared_ptr<SDL_Texture> GetTexture();
+    shared_ptr<SDL_Texture> GetTexture();
 
 private:
-   shared_ptr<SDL_Texture> m_texture;
+    shared_ptr<SDL_Texture> m_texture;
 };
 
 class Prefab : public Resource
 {
 public:
-   Prefab();
-   ~Prefab();
+    Prefab();
+    ~Prefab();
 
-   CResourceManager::ResourceLoadResult Load(string filename) override;
+    CResourceManager::ResourceLoadResult Load(string filename) override;
 
 private:
-   vector<std::string> m_componentNames;
+    vector<std::string> m_componentNames;
 };

@@ -15,27 +15,27 @@ using namespace ajx;
 class CSprite : public CComponent
 {
 public:
-   CSprite();
-   CSprite(const CSprite &other);
+    CSprite();
+    CSprite(const CSprite &other);
 
-   ~CSprite();
+    ~CSprite();
 
-   void SetTexture(shared_ptr<SDL_Texture> texture);
-   void SetTexture(std::string resourceName);
-   shared_ptr<SDL_Texture> GetTexture() const;
-  
+    void SetTexture(shared_ptr<SDL_Texture> texture);
+    void SetTexture(std::string resourceName);
+    shared_ptr<SDL_Texture> GetTexture() const;
+
 protected:
-   void Start() override;
-   void Render() override;
+    void Start() override;
+    void Render() override;
 
-   virtual void UpdateTextureData(shared_ptr<SDL_Texture>);
+    virtual void UpdateTextureData(shared_ptr<SDL_Texture>);
 
-   int32_t m_width;
-   int32_t m_height;
+    int32_t m_width;
+    int32_t m_height;
 
 private:
-   shared_ptr<SDL_Texture> m_texture;
-   weak_ptr<CTransform> m_transform;
+    shared_ptr<SDL_Texture> m_texture;
+    weak_ptr<CTransform> m_transform;
 
-   SDL_Rect RectFromTransform();
+    SDL_Rect RectFromTransform();
 };

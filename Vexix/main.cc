@@ -3,11 +3,8 @@
 #include <cstdlib>
 #include <crtdbg.h>
 
-
-
-int main(int argc, char **argv)
-{
-   auto result = g_application.OnExecute();
-   _CrtDumpMemoryLeaks();
-   return result;
+int main(int argc, char **argv) {
+    auto result = g_application.OnExecute();
+    _CrtDumpMemoryLeaks();
+    return result;
 }

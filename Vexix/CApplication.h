@@ -14,22 +14,22 @@
 class CApplication
 {
 private:
-   bool m_running;
-   std::shared_ptr<SDL_Window> m_window;
-   std::shared_ptr<SDL_Renderer> m_renderer;
+    bool m_running;
+    std::shared_ptr<SDL_Window> m_window;
+    std::shared_ptr<SDL_Renderer> m_renderer;
 
 public:
-   CApplication();
-   int32_t OnExecute();
+    CApplication();
+    int32_t OnExecute();
 
-   bool OnInit();
-   void OnEvent(const SDL_Event &sdlEvent);
-   void OnUpdate(float dt);
-   void OnRender();
-   void OnCleanup();
+    bool OnInit();
+    void OnEvent(const SDL_Event &sdlEvent);
+    void OnUpdate(float dt);
+    void OnRender();
+    void OnCleanup();
 
-   std::shared_ptr<SDL_Window> Window();
-   std::shared_ptr<SDL_Renderer> Renderer();
+    std::shared_ptr<SDL_Window> Window();
+    std::shared_ptr<SDL_Renderer> Renderer();
 };
 
 extern CApplication g_application;

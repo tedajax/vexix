@@ -1,12 +1,10 @@
 #include "CEntity.h"
 
-CEntity::CEntity()
-{
-   m_destroy = false;
+CEntity::CEntity() {
+    m_destroy = false;
 }
 
-CEntity::~CEntity()
-{
+CEntity::~CEntity() {
 
 }
 
@@ -19,38 +17,34 @@ bool CEntity::ShouldDestroy() { return m_destroy; }
 std::string CEntity::GetName() { return m_name; }
 void CEntity::SetName(std::string name) { m_name = name; }
 
-shared_ptr<CTransform> CEntity::Transform()
-{
-   if (!m_transform) {
-      m_transform = GetComponent<CTransform>();
-   }
-   
-   return m_transform;
+shared_ptr<CTransform> CEntity::Transform() {
+    if (!m_transform) {
+        m_transform = GetComponent<CTransform>();
+    }
+
+    return m_transform;
 }
 
-void CEntity::RequestStart()
-{
-   if (m_enabled) {
-      for (auto &kvp : m_components) {
-         kvp.second->RequestStart();
-      }
-   }
+void CEntity::RequestStart() {
+    if (m_enabled) {
+        for (auto &kvp : m_components) {
+            kvp.second->RequestStart();
+        }
+    }
 }
 
-void CEntity::RequestUpdate(float dt)
-{
-   if (m_enabled) {
-      for (auto &kvp : m_components) {
-         kvp.second->RequestUpdate(dt);
-      }
-   }
+void CEntity::RequestUpdate(float dt) {
+    if (m_enabled) {
+        for (auto &kvp : m_components) {
+            kvp.second->RequestUpdate(dt);
+        }
+    }
 }
 
-void CEntity::RequestRender()
-{
-   if (m_enabled) {
-      for (auto &kvp : m_components) {
-         kvp.second->RequestRender();
-      }
-   }
+void CEntity::RequestRender() {
+    if (m_enabled) {
+        for (auto &kvp : m_components) {
+            kvp.second->RequestRender();
+        }
+    }
 }
